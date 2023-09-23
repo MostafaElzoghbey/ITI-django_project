@@ -1,5 +1,36 @@
 {%extends 'index.html'%}
 
+{%block nav-item%}
+    <li class="nav-item">
+        <a class="nav-link" href="{%url 'home'%}">Home</a>
+    </li>
+    {%if request.session.userid %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'myprofile'%}">profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{%url 'mybooks'%}">books</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'Student_books'%}">Borrowed books</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{%url 'mylogout'%}">logout</a>
+    </li>
+    {% comment %} {% if request.session.is_admin == 1 %} {% endcomment %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{%url 'admindashboard'%}">Admin Dashboard</a>
+    </li>
+    {% comment %} {%endif%} {% endcomment %}
+    {%else%}
+    <a class="nav-link" href="{%url 'mylogin'%}">Login</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{%url 'myRegister'%}">Register</a>
+    </li>
+{%endif%}
+{%endblock%}
+
 {%block content%}
 {%endblock%}
 
@@ -15,10 +46,11 @@
             <tr>
                 <th>ID</th>
                 <th>Title</th>
-                <th>Description</th>
+                <th class="des">Description</th>
+                <th>Photo</th>
                 <th>Borrowed</th>
                 <th>Borrowed By</th>
-                <th>Photo</th>
+                <th>Return Time</th>
 				<th>Actions</th>
             </tr>
         </thead>
@@ -27,19 +59,20 @@
                 <tr>
                     <td>{{ book.id }}</td>
                     <td>{{ book.name }}</td>
-                    <td>{{ book.description }}</td>
+                    <td class="des">{{ book.description }}</td>
+                    <td><img src="/static/images/{{ book.photoName }}" alt="{{ book.title }}"></td>
                     <td>{{ book.is_borrowed }}</td>
                     <td>{{ book.borrowed_by_id }}</td>
-                    <td><img src="/static/images/{{ book.photoName }}" alt="{{ book.title }}"></td>
+                    <td>{{ book.returnTime }}</td>
 					<td>
-                        <a href="{%url 'Update_Book' book.id %}">Update Book</a> |
-                        <a href="{%url 'Delete_Book' book.id %}">Delete Book</a>
+                        <a class="a1" href="{%url 'Update_Book' book.id %}">Update Book</a> |
+                        <a class="a1" href="{%url 'Delete_Book' book.id %}">Delete Book</a>
                     </td>
                 </tr>
             {% endfor %}
             <tr>
                 <td>
-                <a href="{%url 'Insert_Book' %}">Add Book</a>
+                <a class="a1" href="{%url 'Insert_Book' %}">Add Book</a>
                 </td>
             </tr>
         </tbody>
@@ -109,7 +142,7 @@
 	table {
 	border-collapse: collapse;
 	width: 50%;
-	margin: auto
+	margin: auto;
 	}
 	
 	th, td {
@@ -125,17 +158,21 @@
 	text-align: center;
 	}
 	
+    .des {
+        max-width: 190px;
+        overflow-x: auto;
+    }
 	img {
 	width: 70px;
 	height: 70px;
 	}
-    a {
+    .a1 {
         color: blue;
         text-decoration: none;
         font-weight: bold;
     }
     
-    a:hover {
+    .a1:hover {
     color: cyan;
     text-decoration: underline;
     }
@@ -170,6 +207,11 @@
     background-color: #222;
     }
 	</style>
-
+{%else%}
+</br>
+</br>
+<h1 align="center" style="color:red"><b>You are not admin</b></h1>
+</br>
+</br>
 {%endif%}
 {%endblock%}

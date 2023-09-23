@@ -66,8 +66,8 @@ def Update_profile(req, ID):
 
 def AdminDashboard(req):
 
-    bookss = Book.objects.all()
-    users = Myaccount.objects.all()
+    bookss = Book.objects.all().order_by('id')
+    users = Myaccount.objects.all().order_by('id')
 
     context = {
         'books': bookss,

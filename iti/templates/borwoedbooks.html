@@ -47,26 +47,27 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    {%block nav-item%}
+                    <li class="nav-item">
                         <a class="nav-link" href="{%url 'home'%}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{%url 'myprofile'%}">profile</a>
                     </li>
                     <li class="nav-item">
-
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{%url 'mybooks'%}">books</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'Student_books'%}">Borrowed books</a>
                     </li>
                     <li class="nav-item">
                         {%if request.session.userid %}
                         <a class="nav-link" href="{%url 'mylogout'%}">logout</a>
-                        {% if request.session.is_admin == 1 %}
+                        {% comment %} {% if request.session.is_admin == 1 %} {% endcomment %}
                     <li class="nav-item">
                         <a class="nav-link" href="{%url 'admindashboard'%}">Admin Dashboard</a>
                     </li>
-                    {%endif%}
+                    {% comment %} {%endif%} {% endcomment %}
                     {%else%}
                     <a class="nav-link" href="{%url 'mylogin'%}">Login</a>
                     </li>
@@ -74,6 +75,7 @@
                         <a class="nav-link" href="{%url 'myRegister'%}">Register</a>
                     </li>
                     {%endif%}
+                    {%endblock%}
                 </ul>
             </div>
         </nav>
@@ -116,6 +118,7 @@
                         </div>
 
                         {% endfor %}
+                        {% if flag %}
                         <form method="POST">
                             {%csrf_token%}
                             {{ form }}
@@ -124,6 +127,7 @@
                         <div style="color: {{ color }}">
                             {{ msg }}
                         </div>
+                        {%endif%}
                     </div>
                 </div>
             </div>

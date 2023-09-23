@@ -47,26 +47,27 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    {%block nav-item%}
+                    <li class="nav-item">
                         <a class="nav-link" href="{%url 'home'%}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{%url 'myprofile'%}">profile</a>
                     </li>
-                    <li class="nav-item">
-
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{%url 'mybooks'%}">books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{%url 'mybooks'%}">books</a>
+                        <a class="nav-link" href="{% url 'Student_books'%}">Borrowed books</a>
                     </li>
                     <li class="nav-item">
                         {%if request.session.userid %}
                         <a class="nav-link" href="{%url 'mylogout'%}">logout</a>
-                        {% if request.session.is_admin == 1 %}
+                        {% comment %} {% if request.session.is_admin == 1 %} {% endcomment %}
                     <li class="nav-item">
                         <a class="nav-link" href="{%url 'admindashboard'%}">Admin Dashboard</a>
                     </li>
-                    {%endif%}
+                    {% comment %} {%endif%} {% endcomment %}
                     {%else%}
                     <a class="nav-link" href="{%url 'mylogin'%}">Login</a>
                     </li>
@@ -75,6 +76,7 @@
                     </li>
 
                     {%endif%}
+                    {%endblock%}
                 </ul>
             </div>
         </nav>
@@ -87,8 +89,7 @@
     <div class="movies_section layout_padding">
         <div class="container">
             <div class="movies_section_2 layout_padding">
-                <h2 class="letest_text">Letest books</h2>
-                <div class="seemore_bt"><a href="#">See More</a></div>
+                <h2 class="letest_text">All Books</h2>
                 <div class="movies_main">
                     <div class="iamge_movies_main">
                         {% for x in data %}
@@ -98,9 +99,15 @@
                                 <img src="/static/images/{{ x.photoName }}" class="image" style="width:100%">
                                 <div class="middle">
                                     <div class="playnow_bt">
-                                        <button type="button" class="btn btn-primary"><a style="color: white"
-                                                href="{%url 'borrowBook' x.id %}">Borrow</a></button>
-
+                                        {%if not x.is_borrowed %}
+                                        <button type="button" class="btn btn-primary">
+                                            <a style="color: white" href="{%url 'borrowBook' x.id %}">Borrow</a>
+                                        </button>
+                                        {%else%}
+                                        <button type="button" class="btn btn-primary">
+                                            <a style="color: white" href="">Reserved</a>
+                                        </button>  
+                                        {%endif%}
                                     </div>
                                 </div>
                             </div>
