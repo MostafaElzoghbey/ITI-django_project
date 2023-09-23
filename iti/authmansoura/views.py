@@ -66,7 +66,7 @@ def Update_profile(req, ID):
 
 def AdminDashboard(req):
 
-    bookss = books.objects.all()
+    bookss = Book.objects.all()
     users = Myaccount.objects.all()
 
     context = {
@@ -99,7 +99,7 @@ def Insert_Book(req):
 
 def Update_Book(req, ID):
 
-    book = books.objects.get(id=ID)
+    book = Book.objects.get(id=ID)
     form = Newbookform(instance=book)
     if (req.method == 'POST'):
 
@@ -117,14 +117,14 @@ def Update_Book(req, ID):
 
 def Delete_Book(req, ID):
 
-    books.objects.get(id=ID).delete()
+    Book.objects.get(id=ID).delete()
 
     return HttpResponseRedirect('/admindashboard')
 
 
 def search_student(request):
 
-    bookss = books.objects.all()
+    bookss = Book.objects.all()
     users = Myaccount.objects.all()
 
     context = {

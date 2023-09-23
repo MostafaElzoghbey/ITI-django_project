@@ -54,4 +54,20 @@ def borrowBook(req, bookID):
 
 
 def Student_books(request):
-    return render(request, 'borwoedbooks.html')
+    
+    book = Book.objects.filter(is_borrowed=True)
+    context = {'dataa': book}
+    
+    return render(request, 'borwoedbooks.html', context)
+
+
+def ReturnBook(req, bookID):
+
+        book = Book.objects.filter(is_borrowed=True)
+        context = {'dataa': book}
+        
+        Book.objects.filter(id=bookID).update(
+            is_borrowed=False, borrowed_by_id_id=None, returnTime=None)
+        context['msg'] = "Return Successfully"
+        context['color'] = "green"
+        return render(req, 'borwoedbooks.html', context)

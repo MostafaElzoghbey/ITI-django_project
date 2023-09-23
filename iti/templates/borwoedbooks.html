@@ -92,15 +92,18 @@
 
                         <div class="iamge_movies">
                             <div class="image_3">
-                                <img src="{{ x.photo.url }}" class="image" style="width:100%">
+                                <img src="/static/images/{{ x.photoName }}" class="image" style="width:100%">
                                 <div class="middle">
-                                    <div class="playnow_bt"><a class="playnow_bt"
-                                            href="{% url 'bookdetail'%}">bowrow</a>
+                                    <div class="playnow_bt">
+                                        <button type="button" class="btn btn-primary"><a style="color: white"
+                                                href="{%url 'ReturnBook' x.id %}">Return</a></button>
+
                                     </div>
                                 </div>
                             </div>
-                            <h1 class="code_text">{{x.title}}</h1>
+                            <h1 class="code_text">{{x.name}}</h1>
                             <p class="there_text">{{x.description}} </p>
+                            <p class="there_text">{{x.returnTime}} </p>
                             <div class="star_icon">
                                 <ul>
                                     <li><a href="#"><img src="{% static 'images/star-icon.png'%}"></a></li>

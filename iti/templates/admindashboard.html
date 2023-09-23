@@ -16,6 +16,8 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Borrowed</th>
+                <th>Borrowed By</th>
                 <th>Photo</th>
 				<th>Actions</th>
             </tr>
@@ -24,9 +26,11 @@
             {% for book in books %}
                 <tr>
                     <td>{{ book.id }}</td>
-                    <td>{{ book.title }}</td>
+                    <td>{{ book.name }}</td>
                     <td>{{ book.description }}</td>
-                    <td><img src="{{ book.photo.url }}" alt="{{ book.title }}"></td>
+                    <td>{{ book.is_borrowed }}</td>
+                    <td>{{ book.borrowed_by_id }}</td>
+                    <td><img src="/static/images/{{ book.photoName }}" alt="{{ book.title }}"></td>
 					<td>
                         <a href="{%url 'Update_Book' book.id %}">Update Book</a> |
                         <a href="{%url 'Delete_Book' book.id %}">Delete Book</a>

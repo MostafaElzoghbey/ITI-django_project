@@ -26,8 +26,12 @@ urlpatterns = [
     path('Login', mylogin, name='mylogin'),
     path('Logout', mylogout, name='mylogout'),
     path('profile', myprofile, name='myprofile'),
+    
     path('books', mybooks, name='mybooks'),
     path('borrowBook/<int:bookID>', borrowBook, name='borrowBook'),
+    path('ReturnBook/<int:bookID>', ReturnBook, name='ReturnBook'),
+    
+    
     path('Update_profile/<int:ID>', Update_profile, name='Update_profile'),
     path('admindashboard', AdminDashboard, name='admindashboard'),
     path('Insert_Book', Insert_Book, name='Insert_Book'),

@@ -6,13 +6,14 @@ from students.models import *
 class updateprofile(forms.ModelForm):
     class Meta:
         model = Myaccount
-        fields = '__all__'
+        fields = ['username', 'password', 'account']
+        
 
 
 class Newbookform(forms.ModelForm):
     class Meta:
         model = Book
-        fields = '__all__'
+        fields = ['name', 'description', 'photoName']
 
 
 class BorrowBookForm(forms.ModelForm):
