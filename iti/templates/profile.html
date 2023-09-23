@@ -1,0 +1,51 @@
+{%extends 'index.html'%}
+{%block content%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    {%if request.session.userid %}
+    <div class="container text-center">
+        <table border="1" width="100%">
+            <tr>
+
+                <th>Name</th>
+                <th>account</th>
+            </tr>
+            {%for t in profile%}
+            <tr>
+                <td>{{t.username}}</td>
+                <td>{{t.account}}</td>
+                <td>
+                    <a class="btn btn-outline-secondary" href="{%url 'Update_profile' t.id %}">Update</a>
+                </td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+    {%endif%}
+</body>
+
+</html>
+
+
+{%endblock%}
+<!-- <center>
+
+        {%if request.session.userid %}
+        <p> {{request.session.userid}}</p>
+        <p> {{request.session.username}}</p>
+        <p> {{request.session.account}}</p>
+        <a href="{%url 'Update_profile'%}" class="btn btn-outline-secondary">updateprofile</a>
+        {%else%}
+        <p>Login first</p>
+        {%endif%}
+
+
+    </center>

@@ -1,0 +1,171 @@
+{%extends 'index.html'%}
+
+{%block content%}
+{%endblock%}
+
+{%block main%}
+{% if request.session.is_admin == 1 %}
+
+
+	<h1>Admin Dashboard</h1>
+
+    <h2>Books</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Photo</th>
+				<th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                    <td>{{ book.id }}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.description }}</td>
+                    <td><img src="{{ book.photo.url }}" alt="{{ book.title }}"></td>
+					<td>
+                        <a href="{%url 'Update_Book' book.id %}">Update Book</a> |
+                        <a href="{%url 'Delete_Book' book.id %}">Delete Book</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td>
+                <a href="{%url 'Insert_Book' %}">Add Book</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Users</h2>
+
+    <form action="{% url 'search_student' %}" class="search_user" method="POST">
+        {%csrf_token%}
+
+        <input type="text" name="student_id" placeholder="Search by student ID">
+        <input type="submit" value="Search">
+    </form>
+    </br>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Is Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.account }}</td>
+                    <td>{{ user.is_admin }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	</br>
+	</br>
+
+	<style>
+	body {
+		font-family: sans-serif;
+        background-image: url("/static/images/bg1.gif"), url("/static/images/img-4.jpg");
+        background-position: left top, right top;
+        background-repeat: no-repeat;
+        background-size: 24% 66%;
+		}
+		
+    h1 {
+        font-family: sans-serif;
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: #000;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+	h2 {
+		font-family: serif;
+		font-size: 2.5rem;
+		font-weight: bold;
+		text-align: center;
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+		color: #000;
+	}
+	table {
+	border-collapse: collapse;
+	width: 50%;
+	margin: auto
+	}
+	
+	th, td {
+	border: 1px solid black;
+	padding: 5px;
+	}
+	
+	th {
+	background-color: #ccc;
+	}
+	
+	td {
+	text-align: center;
+	}
+	
+	img {
+	width: 70px;
+	height: 70px;
+	}
+    a {
+        color: blue;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    a:hover {
+    color: cyan;
+    text-decoration: underline;
+    }
+
+    .search_user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+    }
+    
+    .search_user input {
+    width: 79%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    }
+    
+    .search_user input[type="submit"] {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    width: 50%;
+    }
+    
+    .search_user input[type="submit"]:hover {
+    background-color: #222;
+    }
+	</style>
+
+{%endif%}
+{%endblock%}

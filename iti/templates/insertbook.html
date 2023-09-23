@@ -1,0 +1,18 @@
+{%extends 'index.html'%}
+
+{%block content%}
+
+<h1> New Book</h1>
+
+<form method="post">
+    {%csrf_token%}
+    {{ form.as_p }}
+
+
+    <input type="submit" value="add">
+</form>
+<div style="color:green">
+    <h2>{{msg}}</h2>
+</div>
+
+{%endblock%}

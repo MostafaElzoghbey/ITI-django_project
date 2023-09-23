@@ -1,0 +1,35 @@
+{%extends 'index.html'%}
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <center>
+        <form method="POST">
+            {%csrf_token%}
+            <label>User Name:</label>
+            <input type="text" name="Username" />
+            </br>
+            </br>
+            <label>Password:</label>
+            <input type="password" name="Password" />
+            <br>
+            <br>
+            <label>Email:</label>
+            <input type="Email" name="Email" />
+
+            <input type="submit" class="btn btn-outline-secondary" name="Register" />
+        </form>
+    </center>
+</body>
+
+
+</html>
+
+
+{%endblock%}
